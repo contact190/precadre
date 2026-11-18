@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devis précadre Idéal Aluminium</title>
+<meta name="description" content="Calculez en ligne le devis de vos précadres aluminium Idéal Aluminium et envoyez votre demande sur WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Plan : profilé alu anodisé (gris bleuté), coins couleur bois comme sur la gamme, vert WhatsApp réservé à l'envoi.
+   Mise en page : en-tête court, puis calculateur (ouvertures à gauche, devis à droite), puis les rubriques de présentation. */
+:root{
+  --bg:#f3f4f5;
+  --surface:#ffffff;
+  --ink:#1c2328;
+  --muted:#5b6670;
+  --line:#d5dade;
+  --alu:#8d99a3;
+  --steel:#2b3a44;
+  --wood:#b27a45;
+  --wood-soft:#f1e4d6;
+  --wa:#1f9d55;
+  --wa-ink:#ffffff;
+  --err:#b42318;
+  --font-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --font-body:"Barlow","Segoe UI",Roboto,Arial,sans-serif;
+  --r:10px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14191d;--surface:#1c2328;--ink:#e8ecef;--muted:#9aa6af;--line:#2f3a42;
+    --alu:#6f7c86;--steel:#cfd8de;--wood:#d39a62;--wood-soft:#3a2c1f;--wa:#25b863;--err:#ff8a7a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14191d;--surface:#1c2328;--ink:#e8ecef;--muted:#9aa6af;--line:#2f3a42;
+  --alu:#6f7c86;--steel:#cfd8de;--wood:#d39a62;--wood-soft:#3a2c1f;--wa:#25b863;--err:#ff8a7a;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.5}
+h1,h2,h3{font-family:var(--font-display);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:clamp(2.3rem,6vw,3.6rem)}
+h2{font-size:clamp(1.8rem,4vw,2.4rem)}
+h3{font-size:1.35rem}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--wood);outline-offset:2px}
+
+/* En-tête */
+.top{background:var(--steel);color:var(--bg)}
+:root[data-theme="dark"] .top,.top{--t-ink:#f3f4f5}
+.top{color:#f3f4f5;background:#2b3a44}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:1.35rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.brand-mark{width:30px;height:30px;position:relative;border:4px solid #c9d1d7}
+.brand-mark::before,.brand-mark::after{content:"";position:absolute;width:9px;height:9px;background:#d39a62}
+.brand-mark::before{left:-6px;top:-6px}.brand-mark::after{right:-6px;bottom:-6px}
+.bar a.wa-mini{font-weight:600;text-decoration:none;border:1px solid #6f8290;border-radius:999px;padding:6px 14px;white-space:nowrap}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;padding:28px 0 40px}
+.hero p.lead{font-size:1.15rem;color:#c9d1d7;margin-top:14px;max-width:34em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem var(--font-body);border-radius:var(--r);padding:12px 20px;border:0;cursor:pointer;text-decoration:none}
+.btn-wood{background:#d39a62;color:#1c2328}
+.btn-ghost{background:transparent;color:#f3f4f5;border:1px solid #6f8290}
+.hero-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fact{border:1px solid #4a5c68;border-radius:var(--r);padding:14px}
+.fact b{display:block;font-family:var(--font-display);font-size:2rem;color:#d39a62;line-height:1}
+.fact span{font-size:.9rem;color:#c9d1d7}
+
+/* Calculateur */
+section{padding:48px 0}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;max-width:46em}
+.sec-head p{color:var(--muted)}
+.calc{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:24px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.opening{border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;grid-template-columns:118px 1fr;gap:16px;background:var(--surface)}
+.opening + .opening{margin-top:14px}
+.op-visual{display:flex;flex-direction:column;align-items:center;gap:8px}
+.op-visual svg{width:100%;height:auto;max-width:118px}
+.type-chip{font-size:.8rem;font-weight:600;background:var(--wood-soft);color:var(--ink);border-radius:999px;padding:3px 10px;text-align:center}
+.op-body{display:flex;flex-direction:column;gap:12px;min-width:0}
+.op-head{display:flex;gap:10px;align-items:center}
+.op-head input{flex:1;min-width:0}
+.op-remove{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 10px;cursor:pointer;font:500 .9rem var(--font-body)}
+.q{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.q > .q-label{font-weight:600;font-size:.95rem;min-width:9.5em}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{font:500 .95rem var(--font-body);background:var(--surface);color:var(--ink);border:0;padding:8px 14px;cursor:pointer}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--steel);color:var(--bg)}
+.dims{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.85rem;font-weight:600;color:var(--muted)}
+input[type=text],input[type=number],input[type=tel]{font:500 1rem var(--font-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+input:focus{border-color:var(--wood)}
+input.bad{border-color:var(--err)}
+.hint{font-size:.88rem;color:var(--muted);border-left:3px solid var(--wood);padding:2px 0 2px 10px}
+.op-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+.op-price{font-family:var(--font-display);font-size:1.5rem;font-variant-numeric:tabular-nums}
+.op-price small{font-family:var(--font-body);font-size:.8rem;color:var(--muted);font-weight:500}
+.err{color:var(--err);font-size:.88rem}
+.add{margin-top:14px;width:100%;background:transparent;border:2px dashed var(--alu);color:var(--ink);border-radius:12px;padding:14px;font:600 1rem var(--font-body);cursor:pointer}
+
+/* Devis */
+.quote{position:sticky;top:16px;display:flex;flex-direction:column;gap:16px}
+.quote h3{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.quote h3 span{font-family:var(--font-body);font-size:.8rem;font-weight:600;color:var(--muted)}
+.qtable{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
+.qtable th{text-align:left;font-weight:600;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line);padding:6px 4px}
+.qtable td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.qtable td.n,.qtable th.n{text-align:right;white-space:nowrap}
+.qtable td small{display:block;color:var(--muted)}
+.tarif{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.9rem}
+.pill{border-radius:999px;padding:3px 12px;font-weight:600;font-size:.85rem}
+.pill.det{background:var(--line);color:var(--ink)}
+.pill.pro{background:var(--wood);color:#1c2328}
+.totals{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-variant-numeric:tabular-nums}
+.totals .ttc{font-family:var(--font-display);font-size:1.9rem;border-top:2px solid var(--ink);padding-top:6px;margin-top:4px}
+.estim{font-size:.85rem;color:var(--muted)}
+.client{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.req{color:var(--wood)}
+.btn-wa{background:var(--wa);color:var(--wa-ink);width:100%;font-size:1.05rem;padding:14px 18px}
+.btn-copy{background:transparent;border:1px solid var(--line);color:var(--ink);width:100%}
+.form-msg{font-size:.9rem}
+.hidden{display:none!important}
+
+/* Rubriques */
+.alt{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.alt .card{background:var(--surface)}
+.card .ico{width:44px;height:44px}
+.card p{color:var(--muted)}
+.gamme{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.gamme figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:.88rem;font-weight:500}
+.gamme svg{width:100%;max-width:110px;height:auto}
+.wide{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:center}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:s}
+.steps li{counter-increment:s;border-top:4px solid var(--alu);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.steps li::before{content:counter(s);font-family:var(--font-display);font-size:2.2rem;color:var(--wood);line-height:1}
+.steps li b{font-size:1.05rem}
+.steps li span{color:var(--muted);font-size:.95rem}
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
+.contact dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.contact dt{font-weight:600;color:var(--muted)}
+.contact dd{margin:0}
+footer{padding:24px 0;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+@media (max-width:980px){
+  .calc{grid-template-columns:1fr}
+  .quote{position:static}
+  .hero{grid-template-columns:1fr}
+  .gamme{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .opening{grid-template-columns:1fr}
+  .op-visual{flex-direction:row;justify-content:flex-start}
+  .op-visual svg{max-width:72px}
+  .q > .q-label{min-width:100%}
+  .dims{grid-template-columns:1fr 1fr}
+  .dims label:last-child{grid-column:span 2}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .hero-facts{grid-template-columns:1fr 1fr 1fr}
+  .wide{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+}
+
+.narrow{max-width:860px}
+.simple{display:flex;flex-direction:column;gap:14px}
+.rows-head,.row{display:grid;grid-template-columns:minmax(0,1fr) 92px 92px 70px 104px 32px;gap:8px;align-items:center}
+.rows-head{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:0 2px}
+.rows-head .r,.r-price{text-align:right}
+.row{padding:10px 0;border-bottom:1px solid var(--line)}
+.r-type{display:flex;gap:8px;align-items:center;min-width:0}
+.thumb{width:30px;flex:none;display:flex}.thumb svg{width:30px;height:auto}
+select{font:500 .95rem var(--font-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 8px;width:100%;min-width:0}
+.r-f span{display:none}
+.r-price{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.r-rm{width:32px;height:32px;border:1px solid var(--line);background:none;color:var(--muted);border-radius:8px;cursor:pointer;font-size:1.1rem;line-height:1}
+.r-note{grid-column:1/-1;font-size:.85rem;color:var(--muted);padding-left:38px}
+.r-note:empty{display:none}
+.r-note.err{color:var(--err)}
+.add{margin-top:0;padding:10px}
+.sum{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:flex-end;border-top:2px solid var(--ink);padding-top:14px}
+.sum-left{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:600}
+.sum .totals{min-width:260px;column-gap:0}
+.sum .totals > span:nth-child(odd){padding-right:16px}
+.client > .seg{align-self:flex-start}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.grid3 .span2{grid-column:span 2}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer}
+@media (max-width:700px){
+  .rows-head{display:none}
+  .row{grid-template-columns:repeat(3,minmax(0,1fr)) 32px;row-gap:8px}
+  .r-type{grid-column:1/-1}
+  .r-f span{display:block;font-size:.78rem;font-weight:600;color:var(--muted)}
+  .r-f{display:flex;flex-direction:column;gap:2px}
+  .r-price{grid-column:1/4;text-align:left;font-size:1.05rem}
+  .row > :nth-child(1){grid-row:1;grid-column:1/4}
+  .row > :nth-child(2){grid-row:2;grid-column:1}
+  .row > :nth-child(3){grid-row:2;grid-column:2}
+  .row > :nth-child(4){grid-row:2;grid-column:3}
+  .row > :nth-child(5){grid-row:3;grid-column:1/4}
+  .row > :nth-child(6){grid-row:1;grid-column:4}
+  .row > :nth-child(7){grid-row:4}
+  .r-note{padding-left:0}
+  .grid4{grid-template-columns:1fr 1fr}
+  .grid3{grid-template-columns:1fr 1fr}
+}
+@media (max-width:420px){.grid4,.grid3{grid-template-columns:1fr}.grid3 .span2{grid-column:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Idéal Aluminium</div>
+      <a class="wa-mini" href="https://wa.me/213560255583">WhatsApp 0560 25 55 83</a>
+    </div>
+    <div class="hero">
+      <div>
+        <h1>Le précadre aluminium, chiffré en ligne en 1 minute</h1>
+        <p class="lead">Vos fenêtres posées en dernier, sur un cadre déjà d'aplomb. Choisissez le type, entrez vos dimensions : le devis s'affiche tout de suite.</p>
+        <div class="hero-cta">
+          <a class="btn btn-wood" href="#calculateur">Calculer mon devis</a>
+          <a class="btn btn-ghost" href="#gamme">Voir la gamme</a>
+        </div>
+      </div>
+      <div class="hero-facts">
+        <div class="fact"><b>6</b><span>types pour toutes les ouvertures</span></div>
+        <div class="fact"><b>3</b><span>pièces dans le kit</span></div>
+        <div class="fact"><b>20+</b><span>précadres : tarif professionnel</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="calculateur">
+  <div class="wrap narrow">
+    <div class="sec-head">
+      <h2>Votre devis en 1 minute</h2>
+      <p>Choisissez le type, entrez largeur et hauteur en cm, dépassement dans le linteau ou le sol compris, puis la quantité.</p>
+    </div>
+    <div class="panel simple">
+      <div class="rows-head" aria-hidden="true"><span>Type de précadre</span><span>Largeur</span><span>Hauteur</span><span>Qté</span><span class="r">Prix HT</span><span></span></div>
+      <div id="openings"></div>
+      <button type="button" class="add" id="addBtn">+ Ajouter une ligne</button>
+      <p class="estim">Vous hésitez sur le type ? <a href="#gamme">Voir les 6 types en image</a>.</p>
+
+      <div class="sum">
+        <div class="sum-left">
+          <span id="qCount">0 précadre</span>
+          <span class="pill det" id="tarifPill">Tarif détail</span>
+          <span id="tarifNote" class="estim"></span>
+        </div>
+        <div class="totals">
+          <span>Total HT</span><span id="tHT">0 DA</span>
+          <span>TVA 19 %</span><span id="tTVA">0 DA</span>
+          <span class="ttc">Total TTC</span><span class="ttc" id="tTTC">0 DA</span>
+        </div>
+      </div>
+      <p class="estim">Devis estimatif. Nous vous rappelons pour vérifier les mesures et confirmer le prix.</p>
+
+      <form class="client" id="clientForm" novalidate>
+        <div class="seg" role="group" aria-label="Vous êtes">
+          <button type="button" id="cPart" aria-pressed="true">Particulier</button>
+          <button type="button" id="cEnt" aria-pressed="false">Entreprise</button>
+        </div>
+        <div id="fPart" class="grid4">
+          <label class="f" for="nom"><span>Nom <span class="req">*</span></span><input type="text" id="nom" autocomplete="family-name"></label>
+          <label class="f" for="prenom"><span>Prénom <span class="req">*</span></span><input type="text" id="prenom" autocomplete="given-name"></label>
+          <label class="f" for="wilayaP"><span>Wilaya <span class="req">*</span></span><input type="text" id="wilayaP" placeholder="ex. Oran"></label>
+          <label class="f" for="telP"><span>Téléphone <span class="req">*</span></span><input type="tel" id="telP" inputmode="tel" autocomplete="tel" placeholder="07 …"></label>
+        </div>
+        <div id="fEnt" class="grid3 hidden">
+          <label class="f span2" for="raison"><span>Nom de l'entreprise <span class="req">*</span></span><input type="text" id="raison" autocomplete="organization"></label>
+          <label class="f" for="telE"><span>Téléphone <span class="req">*</span></span><input type="tel" id="telE" inputmode="tel" autocomplete="tel" placeholder="07 …"></label>
+          <label class="f span2" for="adresse"><span>Adresse <span class="req">*</span></span><input type="text" id="adresse" autocomplete="street-address"></label>
+          <label class="f" for="wilayaE"><span>Wilaya <span class="req">*</span></span><input type="text" id="wilayaE" placeholder="ex. Oran"></label>
+          <label class="f" for="rc"><span>RC <span class="req">*</span></span><input type="text" id="rc"></label>
+          <label class="f" for="nif"><span>NIF <span class="req">*</span></span><input type="text" id="nif" inputmode="numeric"></label>
+          <label class="f" for="nis"><span>NIS <span class="req">*</span></span><input type="text" id="nis" inputmode="numeric"></label>
+        </div>
+        <p class="form-msg err hidden" id="formErr" role="alert"></p>
+        <a class="btn btn-wa" id="waBtn" href="https://wa.me/213560255583">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/></svg>
+          Envoyer ma demande sur WhatsApp
+        </a>
+        <p class="estim" id="copyMsg" aria-live="polite">WhatsApp ne s'ouvre pas ? <button type="button" class="linkbtn" id="copyBtn">Copiez le devis</button> et envoyez-le au 0560 25 55 83.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="pourquoi">
+  <div class="wrap">
+    <div class="sec-head"><h2>Pourquoi un précadre</h2></div>
+    <div class="cards">
+      <div class="card"><h3>Un cadre d'aplomb</h3><p>Le précadre est scellé pendant le gros œuvre. La fenêtre arrive ensuite sur une base droite et d'équerre.</p></div>
+      <div class="card"><h3>Fenêtres posées en dernier</h3><p>Vos menuiseries restent à l'abri pendant les enduits et la peinture, et sont posées une fois le chantier propre.</p></div>
+      <div class="card"><h3>Livré prêt à sceller</h3><p>Découpe et assemblage dans notre atelier, livraison sur votre chantier.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="gamme">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>La gamme : six types pour toutes les ouvertures</h2>
+      <p>Les carrés couleur bois marquent les coins d'angle. Les montants qui dépassent vont dans le linteau ou dans le sol.</p>
+    </div>
+    <div class="gamme" id="gammeGrid"></div>
+  </div>
+</section>
+
+<section class="alt" id="kit">
+  <div class="wrap">
+    <div class="sec-head"><h2>Le kit : trois pièces, un cadre qui ne bouge pas</h2></div>
+    <div class="cards">
+      <div class="card">
+        <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><path d="M6 6h32v10H16v22H6z" fill="none" stroke="currentColor" stroke-width="3"/><rect x="6" y="6" width="10" height="10" fill="var(--wood)"/></svg>
+        <h3>Coin d'angle</h3><p>Assemble les angles à l'équerre.</p></div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><path d="M6 38 38 6" stroke="currentColor" stroke-width="4"/><path d="M6 30v8h8M30 6h8v8" fill="none" stroke="var(--wood)" stroke-width="3"/></svg>
+        <h3>Cartabone</h3><p>Tient le cadre d'équerre pendant le scellement.</p></div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><path d="M8 10h14v24H8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M22 22h16" stroke="var(--wood)" stroke-width="4"/><path d="M30 16v12M36 18v8" stroke="var(--wood)" stroke-width="2"/></svg>
+        <h3>Patte de scellement</h3><p>Noyée dans le mortier, elle ancre le cadre au mur.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="grandes">
+  <div class="wrap wide">
+    <svg viewBox="0 0 200 150" aria-hidden="true" style="max-width:200px">
+      <rect x="10" y="10" width="180" height="130" fill="none" stroke="var(--alu)" stroke-width="8"/>
+      <line x1="100" y1="10" x2="100" y2="140" stroke="var(--steel)" stroke-width="8"/>
+      <line x1="20" y1="20" x2="90" y2="130" stroke="var(--wood)" stroke-width="2"/>
+      <line x1="90" y1="20" x2="20" y2="130" stroke="var(--wood)" stroke-width="2"/>
+      <line x1="110" y1="20" x2="180" y2="130" stroke="var(--wood)" stroke-width="2"/>
+      <line x1="180" y1="20" x2="110" y2="130" stroke="var(--wood)" stroke-width="2"/>
+    </svg>
+    <div class="sec-head" style="margin:0">
+      <h2>Grandes ouvertures : au-delà de 1,80 m de large</h2>
+      <p>Nous ajoutons une traverse verticale au milieu du cadre, d'une seule pièce du haut en bas. Elle est fixée par des cartabones posés en croisé : le cadre reste rigide et d'équerre pendant le scellement. Le calculateur l'ajoute automatiquement.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="commander">
+  <div class="wrap">
+    <div class="sec-head"><h2>Commander en cinq étapes</h2></div>
+    <ol class="steps">
+      <li><b>Mesurer</b><span>Largeur × hauteur en cm, dépassement dans le linteau ou le sol compris.</span></li>
+      <li><b>Choisir le type</b><span>Un des 6 types selon l'ouverture, le seuil et le linteau.</span></li>
+      <li><b>Recevoir le devis</b><span>Prix selon les dimensions et les quantités, confirmé par téléphone.</span></li>
+      <li><b>Fabrication</b><span>Découpe et assemblage dans notre atelier.</span></li>
+      <li><b>Livraison</b><span>Sur votre chantier, prêts à sceller.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <div class="sec-head" style="margin:0">
+      <h2>Une question avant de commander ?</h2>
+      <p>Écrivez-nous sur WhatsApp, nous répondons avec plaisir.</p>
+      <div class="hero-cta"><a class="btn btn-wa" style="width:auto" href="https://wa.me/213560255583">WhatsApp 0560 25 55 83</a></div>
+    </div>
+    <dl>
+      <dt>WhatsApp et téléphone</dt><dd>0560 25 55 83</dd>
+      <dt>E-mail</dt><dd><a href="mailto:contact@idealalubois.com">contact@idealalubois.com</a></dd>
+      <dt>Adresse</dt><dd>N°35 de la décision du lotissement de la zone industrielle, 31038</dd>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Idéal Aluminium et Bois · Menuiserie alu et bois · Prix en dinars algériens, devis estimatif.</div></footer>
+
+<script>
+/* ---- TARIF ----
+   Coefficients de prix de vente (DA HT) issus du calculateur interne.
+   prix = arrondi à 10 DA de ( fixe[type] + parCm × longueur de profilé en cm + traverse ), avec un minimum par pièce.
+   longueur = nb de largeurs × largeur + 2 × hauteur (+ hauteur si traverse). */
+const TARIF = {
+  seuilPro: 20,
+  largeurTraverse: 180,
+  tva: 0.19,
+  det: { min: 2000, parCm: 5.15625,
+         fixe: {1:711.449306, 2:658.045904, 3:865.318648, 4:774.790210, 5:918.722050, 6:865.318648},
+         trav: {fen:138.181818, pf:276.363636} },
+  pro: { min: 1600, parCm: 4.574092741935484,
+         fixe: {1:631.124385, 2:583.750399, 3:767.621413, 4:687.313896, 5:814.995302, 6:767.621413},
+         trav: {fen:122.580645, pf:245.161290} }
+};
+const TYPES = {
+  1:{nom:"Fenêtre sans linteau", largeurs:2, pf:false, linteau:false, seuil:true},
+  2:{nom:"Fenêtre avec linteau", largeurs:2, pf:false, linteau:true, seuil:true},
+  3:{nom:"Porte-fenêtre avec seuil, avec linteau", largeurs:3, pf:true, linteau:true, seuil:true},
+  4:{nom:"Porte-fenêtre sans seuil, avec linteau", largeurs:3, pf:true, linteau:true, seuil:false},
+  5:{nom:"Porte-fenêtre avec seuil, sans linteau", largeurs:3, pf:true, linteau:false, seuil:true},
+  6:{nom:"Porte-fenêtre sans seuil, sans linteau", largeurs:3, pf:true, linteau:false, seuil:false}
+};
+function typeDe(pf, linteau, seuil){
+  if(!pf) return linteau ? 2 : 1;
+  if(linteau) return seuil ? 3 : 4;
+  return seuil ? 5 : 6;
+}
+function prixUnitaire(type, L, H, grille){
+  const t = TYPES[type], g = TARIF[grille];
+  const traverse = L > TARIF.largeurTraverse;
+  const longueur = t.largeurs * L + 2 * H + (traverse ? H : 0);
+  const brut = g.fixe[type] + g.parCm * longueur + (traverse ? g.trav[t.pf ? "pf" : "fen"] : 0);
+  return Math.max(g.min, Math.round(brut / 10) * 10);
+}
+/* ---- FIN TARIF ---- */
+
+const WA_NUM = "213560255583";
+const fmt = n => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " DA";
+const fmtTxt = n => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " DA";
+
+function frameSVG(type){
+  const t = TYPES[type];
+  const W = 120, Hh = 150, x0 = 24, x1 = 96, s = 9;
+  const top = t.linteau ? 34 : 14, bot = t.seuil ? 136 : 118;
+  const upTop = t.linteau ? 8 : top, upBot = t.seuil ? bot : 146;
+  let g = '';
+  if(t.linteau) g += `<rect x="0" y="0" width="${W}" height="${top-4}" fill="var(--line)"/>`;
+  if(!t.seuil) g += `<rect x="0" y="${bot+6}" width="${W}" height="${Hh-bot-6}" fill="var(--line)"/>`;
+  g += `<line x1="${x0}" y1="${upTop}" x2="${x0}" y2="${upBot}" stroke="var(--alu)" stroke-width="7"/>`;
+  g += `<line x1="${x1}" y1="${upTop}" x2="${x1}" y2="${upBot}" stroke="var(--alu)" stroke-width="7"/>`;
+  g += `<line x1="${x0}" y1="${top}" x2="${x1}" y2="${top}" stroke="var(--alu)" stroke-width="7"/>`;
+  if(t.seuil) g += `<line x1="${x0}" y1="${bot}" x2="${x1}" y2="${bot}" stroke="var(--alu)" stroke-width="7"/>`;
+  const corners = [];
+  if(!t.linteau) corners.push([x0,top],[x1,top]);
+  if(t.seuil) corners.push([x0,bot],[x1,bot]);
+  corners.forEach(([cx,cy]) => g += `<rect x="${cx-s/2-1}" y="${cy-s/2-1}" width="${s+2}" height="${s+2}" fill="var(--wood)"/>`);
+  return `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="${t.nom}">${g}</svg>`;
+}
+
+/* ---- Lignes ---- */
+let uid = 0;
+const openings = [];
+function newOpening(prefill){
+  return Object.assign({id: ++uid, type:1, L:"", H:"", q:1}, prefill||{});
+}
+openings.push(newOpening({type:1, L:120, H:140, q:2}));
+
+const box = document.getElementById("openings");
+const typeOptions = sel => Object.keys(TYPES).map(k => `<option value="${k}"${+k===+sel?" selected":""}>${k}. ${TYPES[k].nom}</option>`).join("");
+
+function renderOpenings(){
+  box.innerHTML = openings.map((o,i) => `<div class="row" data-id="${o.id}">
+      <div class="r-type"><span class="thumb" id="th-${o.id}">${frameSVG(o.type)}</span>
+        <select id="t-${o.id}" data-f="type" data-id="${o.id}" aria-label="Type de précadre, ligne ${i+1}">${typeOptions(o.type)}</select></div>
+      <label class="r-f"><span>Largeur</span><input type="number" id="L-${o.id}" min="20" max="600" inputmode="numeric" placeholder="cm" value="${o.L}" data-f="L" data-id="${o.id}" aria-label="Largeur en cm, ligne ${i+1}"></label>
+      <label class="r-f"><span>Hauteur</span><input type="number" id="H-${o.id}" min="20" max="600" inputmode="numeric" placeholder="cm" value="${o.H}" data-f="H" data-id="${o.id}" aria-label="Hauteur en cm, ligne ${i+1}"></label>
+      <label class="r-f"><span>Qté</span><input type="number" id="q-${o.id}" min="1" max="999" inputmode="numeric" value="${o.q}" data-f="q" data-id="${o.id}" aria-label="Quantité, ligne ${i+1}"></label>
+      <div class="r-price" id="p-${o.id}"></div>
+      <button type="button" class="r-rm" data-rm="${o.id}" aria-label="Supprimer la ligne ${i+1}"${openings.length>1?"":" hidden"}>×</button>
+      <div class="r-note" id="n-${o.id}"></div>
+    </div>`).join("");
+  update();
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function valid(o){
+  const L = Number(o.L), H = Number(o.H), q = Number(o.q);
+  if(!o.L || !o.H) return "empty";
+  if(!(L>=20 && L<=600) || !(H>=20 && H<=600)) return "Dimensions entre 20 et 600 cm.";
+  if(!(Number.isInteger(q) && q>=1)) return "Quantité : au moins 1.";
+  return "";
+}
+
+function compute(){
+  const lines = openings.map(o => ({o, type:+o.type, err:valid(o)}));
+  const qTot = lines.filter(l=>!l.err).reduce((a,l)=>a+Number(l.o.q),0);
+  const grille = qTot >= TARIF.seuilPro ? "pro" : "det";
+  lines.forEach(l => {
+    if(l.err) return;
+    l.pu = prixUnitaire(l.type, Number(l.o.L), Number(l.o.H), grille);
+    l.total = l.pu * Number(l.o.q);
+    l.traverse = Number(l.o.L) > TARIF.largeurTraverse;
+  });
+  const ht = lines.reduce((a,l)=>a+(l.total||0),0);
+  const tva = ht * TARIF.tva;
+  return {lines, qTot, grille, ht, tva, ttc: ht + tva};
+}
+
+let last;
+function update(){
+  last = compute();
+  const {lines,qTot,grille,ht,tva,ttc} = last;
+  lines.forEach(l => {
+    const p = document.getElementById("p-"+l.o.id), n = document.getElementById("n-"+l.o.id);
+    if(!p) return;
+    if(l.err){ p.textContent = "–"; n.textContent = l.err==="empty" ? "" : l.err; n.className = "r-note err"; return; }
+    p.textContent = fmt(l.total);
+    n.className = "r-note";
+    n.textContent = (l.o.q>1 ? `${fmt(l.pu)} la pièce` : "") + (l.traverse ? `${l.o.q>1?" · ":""}traverse ajoutée (plus de 1,80 m)` : "");
+  });
+  document.getElementById("qCount").textContent = `${qTot} précadre${qTot>1?"s":""}`;
+  const pill = document.getElementById("tarifPill");
+  pill.textContent = grille==="pro" ? "Tarif professionnel" : "Tarif détail";
+  pill.className = "pill " + grille;
+  document.getElementById("tarifNote").textContent = grille==="pro" ? "" :
+    (qTot ? `tarif pro dès 20` : "");
+  document.getElementById("tHT").textContent = fmt(ht);
+  document.getElementById("tTVA").textContent = fmt(tva);
+  document.getElementById("tTTC").textContent = fmt(ttc);
+  refreshWaLink();
+}
+
+box.addEventListener("click", e => {
+  const b = e.target.closest("button[data-rm]");
+  if(!b) return;
+  const i = openings.findIndex(o=>o.id==b.dataset.rm);
+  if(i>-1){ openings.splice(i,1); renderOpenings(); }
+});
+box.addEventListener("input", e => {
+  const el = e.target;
+  if(!el.dataset.f) return;
+  const o = openings.find(o=>o.id==el.dataset.id);
+  o[el.dataset.f] = el.value;
+  if(el.dataset.f==="type") document.getElementById("th-"+o.id).innerHTML = frameSVG(o.type);
+  update();
+});
+document.getElementById("addBtn").addEventListener("click", () => {
+  const prev = openings[openings.length-1];
+  const o = newOpening({type: prev ? prev.type : 1});
+  openings.push(o);
+  renderOpenings();
+  const f = document.getElementById("L-"+o.id);
+  if(f) f.focus();
+});
+
+/* ---- Client ---- */
+let entreprise = false;
+const cPart = document.getElementById("cPart"), cEnt = document.getElementById("cEnt");
+function setClient(isEnt){
+  entreprise = isEnt;
+  cPart.setAttribute("aria-pressed", String(!isEnt));
+  cEnt.setAttribute("aria-pressed", String(isEnt));
+  document.getElementById("fPart").classList.toggle("hidden", isEnt);
+  document.getElementById("fEnt").classList.toggle("hidden", !isEnt);
+  formErr.classList.add("hidden");
+  refreshWaLink();
+}
+cPart.addEventListener("click", () => setClient(false));
+cEnt.addEventListener("click", () => setClient(true));
+document.getElementById("clientForm").addEventListener("input", refreshWaLink);
+document.getElementById("clientForm").addEventListener("submit", e => e.preventDefault());
+
+const val = id => document.getElementById(id).value.trim();
+const telId = () => entreprise ? "telE" : "telP";
+const wilId = () => entreprise ? "wilayaE" : "wilayaP";
+function requiredIds(){ return entreprise ? ["raison","telE","adresse","wilayaE","rc","nif","nis"] : ["nom","prenom","wilayaP","telP"]; }
+function checkClient(){
+  const missing = requiredIds().filter(id => !val(id));
+  document.querySelectorAll("#clientForm input").forEach(i => i.classList.remove("bad"));
+  missing.forEach(id => document.getElementById(id).classList.add("bad"));
+  const telDigits = val(telId()).replace(/\D/g,"");
+  const telBad = val(telId()) && !(telDigits.length===10 && /^0[5-7]/.test(telDigits)) && !(telDigits.length===12 && telDigits.startsWith("213"));
+  if(telBad) document.getElementById(telId()).classList.add("bad");
+  return {missing, telBad};
+}
+
+function buildMessage(){
+  const {lines,qTot,grille,ht,tva,ttc} = last;
+  const ok = lines.filter(l=>!l.err);
+  const out = ["Bonjour Idéal Aluminium, je souhaite un devis précadres.", ""];
+  if(entreprise){
+    out.push("Client : Entreprise", "Entreprise : "+val("raison"), "Adresse : "+val("adresse"),
+             "RC : "+val("rc"), "NIF : "+val("nif"), "NIS : "+val("nis"));
+  } else {
+    out.push("Client : Particulier", "Nom : "+val("nom")+" "+val("prenom"));
+  }
+  out.push("Wilaya : "+val(wilId()), "Téléphone : "+val(telId()), "", "Ouvertures :");
+  ok.forEach((l,i) => out.push(`${i+1}. Type ${l.type} ${TYPES[l.type].nom} – ${l.o.L} × ${l.o.H} cm${l.traverse?" – traverse":""} – Qté ${l.o.q} – ${fmtTxt(l.pu)} HT/pièce`));
+  out.push("", `Quantité totale : ${qTot} – ${grille==="pro"?"Tarif professionnel":"Tarif détail"}`,
+           "Total HT : "+fmtTxt(ht), "TVA 19 % : "+fmtTxt(tva), "Total TTC : "+fmtTxt(ttc),
+           "", "Devis estimatif calculé sur le site, à confirmer après vérification des mesures.");
+  return out.join("\n");
+}
+function refreshWaLink(){
+  if(!last) return;
+  document.getElementById("waBtn").href = "https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(buildMessage());
+}
+const formErr = document.getElementById("formErr");
+function guard(){
+  const okLines = last.lines.filter(l=>!l.err).length;
+  const {missing, telBad} = checkClient();
+  let msg = "";
+  if(!okLines) msg = "Ajoutez au moins une ouverture avec ses dimensions.";
+  else if(missing.length) msg = "Complétez les champs marqués en rouge pour que nous puissions vous rappeler.";
+  else if(telBad) msg = "Vérifiez le numéro de téléphone (10 chiffres, ex. 0560 25 55 83).";
+  formErr.textContent = msg;
+  formErr.classList.toggle("hidden", !msg);
+  return !msg;
+}
+document.getElementById("waBtn").addEventListener("click", e => {
+  if(!guard()){ e.preventDefault(); return; }
+  refreshWaLink();
+});
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  if(!guard()) return;
+  const m = document.getElementById("copyMsg");
+  try{ await navigator.clipboard.writeText(buildMessage()); m.textContent = "Devis copié. Collez-le dans WhatsApp au 0560 25 55 83."; }
+  catch(_){ m.textContent = "La copie automatique n'a pas fonctionné. Envoyez-nous vos mesures sur WhatsApp au 0560 25 55 83."; }
+});
+
+/* ---- Gamme ---- */
+document.getElementById("gammeGrid").innerHTML = Object.keys(TYPES).map(k =>
+  `<figure>${frameSVG(k)}<figcaption>Type ${k}<br>${TYPES[k].nom}</figcaption></figure>`).join("");
+
+renderOpenings();
+</script>
+</body>
+</html>
