@@ -227,6 +227,18 @@ select{font:500 .95rem var(--font-body);color:var(--ink);background:var(--bg);bo
 }
 @media (max-width:420px){.grid4,.grid3{grid-template-columns:1fr}.grid3 .span2{grid-column:auto}}
 </style>
+<!-- Meta Pixel (jeu de données 2228750744355009) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2228750744355009');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=2228750744355009&amp;ev=PageView&amp;noscript=1"></noscript>
+<!-- Fin Meta Pixel -->
 </head>
 <body>
 
@@ -620,6 +632,11 @@ function guard(){
   formErr.classList.toggle("hidden", !msg);
   return !msg;
 }
+function track(ev, params){ try{ if(window.fbq) fbq("track", ev, params||{}); }catch(_){} }
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href*="wa.me"]');
+  if(a) track("Contact", {content_name: "WhatsApp"});
+});
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxn6IinVt8hLR72ndJAx9R2UnIdnYge-OulSPeOwcunzEVlawuxL6vT-2iXjSKy6lUM_A/exec";
 const sendBtn = document.getElementById("sendBtn");
 function payload(){
@@ -646,6 +663,7 @@ document.getElementById("clientForm").addEventListener("submit", async e => {
     const j = await r.json();
     if(!j.ok) throw new Error("refus");
     document.getElementById("doneNum").textContent = j.num || "";
+    track("Lead", {value: Math.round(last.ttc), currency: "DZD", content_name: "Devis précadres", num_items: last.qTot});
     document.getElementById("clientForm").classList.add("hidden");
     const box = document.getElementById("doneBox");
     box.classList.remove("hidden"); box.focus();
